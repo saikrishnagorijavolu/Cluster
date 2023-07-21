@@ -10,6 +10,11 @@ spec:
   selector:
     matchLabels:
       app: dotnet
+  strategy:   # Add RollingUpdate strategy section
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -20,3 +25,15 @@ spec:
         image: aksss.azurecr.io/acrimage:1.0.0
         ports:
         - containerPort: 5000
+        readinessProbe:   # Add ReadinessProbe section
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:   # Add LivenessProbe section
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
