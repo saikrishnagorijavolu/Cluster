@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app: dotnet
-  strategy:   # Add RollingUpdate strategy section
+  strategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
@@ -25,17 +25,17 @@ spec:
         image: aksss.azurecr.io/acrimage:1.0.0
         ports:
         - containerPort: 5000
-      imagePullSecrets:
-        - name: sha
-      readinessProbe:   # Add ReadinessProbe section
+        readinessProbe:
           httpGet:
             path: /healthz
             port: 5000
           initialDelaySeconds: 10
           periodSeconds: 5
-        livenessProbe:   # Add LivenessProbe section
+        livenessProbe:
           httpGet:
             path: /healthz
             port: 5000
           initialDelaySeconds: 30
           periodSeconds: 10
+      imagePullSecrets:   # Add the imagePullSecrets section
+        - name: sha
