@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: dotnet
-        image: pragnya.azurecr.io/dotnet:1.0.1
+        image: aksss.azurecr.io/acrimage:1.0.0
         ports:
         - containerPort: 5000
